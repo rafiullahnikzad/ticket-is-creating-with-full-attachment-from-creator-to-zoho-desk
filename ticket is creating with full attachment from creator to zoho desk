@@ -1,0 +1,1285 @@
+ticket is creating with full attachment from creator to zoho desk
+
+void creatingTicket(int id)
+{
+	try 
+	{
+		info "=== CREATING TICKET WITH CREATOR DATA ===";
+		// STEP 1: FETCH CREATOR RECORD
+		recordID = id;
+		recordData = Main_Onboarding_Wizard[ID == recordID];
+		if(recordData.count() == 0)
+		{
+			info "❌ RECORD NOT FOUND";
+			return;
+		}
+		for each  record in recordData
+		{
+			info "✅ Record Found: " + record.ID;
+			//
+			//Descriptin code section below
+			//
+			description = "<div style='font-family: Arial, sans-serif;'>";
+			description = description + "<h2 style='color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px;'>Main Onboarding Wizard</h2>";
+			description = description + "<p style='background-color: #f8f9fa; padding: 10px; border-left: 4px solid #3498db;'><strong>Submission Date:</strong> " + zoho.currenttime.toString("dd-MMM-yyyy hh:mm a") + "</p>";
+			//
+			//Contact Information
+			//
+			POC_Name = ifnull(record.POC_Name,"");
+			POC_Phone = ifnull(record.POC_Phone,"");
+			email = ifnull(record.POC_Email,"");
+			Is_it_the_same_for_General_Business_Questions = ifnull(record.Is_it_the_same_for_General_Business_Questions,"");
+			POC_Name_General_business_Q = ifnull(record.POC_Name_General_business_Q,"");
+			POC_Phone_General_business_Q = ifnull(record.POC_Phone_General_business_Q,"");
+			POC_Email_General_business_Q = ifnull(record.POC_Email_General_business_Q,"");
+			Is_it_the_same_for_Lead_Notification = ifnull(record.Is_it_the_same_for_Lead_Notification,"");
+			POC_Name_Lead_Notifications = ifnull(record.POC_Name_Lead_Notifications,"");
+			POC_Phone_Lead_Notifications = ifnull(record.POC_Phone_Lead_Notifications,"");
+			POC_Email_Lead_Notifications = ifnull(record.POC_Email_Lead_Notifications,"");
+			Legal_Company_Name = ifnull(record.Legal_Company_Name,"");
+			DBA_Name = ifnull(record.DBA_Name,"");
+			//
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Contact Information</h3>";
+			//
+			////Credentialing & Compliance		
+			//
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td colspan='2' style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; background-color: #f8f9fa;'>Credentialing & Compliance</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>POC Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Name + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Phone + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'><a href='mailto:" + email + "'>" + email + "</a></td></tr>";
+			description = description + "</table>";
+			//
+			////General Business Questions	
+			//
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td colspan='2' style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; background-color: #f8f9fa;'>General Business Questions</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Is it the same for General Business Questions:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Is_it_the_same_for_General_Business_Questions + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Name_General_business_Q + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Phone_General_business_Q + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'><a href='mailto:" + POC_Email_General_business_Q + "'>" + POC_Email_General_business_Q + "</a></td></tr>";
+			description = description + "</table>";
+			//
+			////Lead Notifications		
+			//
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td colspan='2' style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; background-color: #f8f9fa;'>Lead Notifications</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Is it the same for Lead Notification:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Is_it_the_same_for_Lead_Notification + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Name_Lead_Notifications + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + POC_Phone_Lead_Notifications + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>POC Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'><a href='mailto:" + POC_Email_Lead_Notifications + "'>" + POC_Email_Lead_Notifications + "</a></td></tr>";
+			description = description + "</table>";
+			//
+			////Company Information	
+			//
+			Legal_Company_Name = ifnull(record.Legal_Company_Name,"");
+			Tax_ID = ifnull(record.Tax_ID,"");
+			Website = ifnull(record.Website,"");
+			Do_you_operate_under_another_business_name_DBA = ifnull(record.Do_you_operate_under_another_business_name_DBA,"");
+			DBA_Name = ifnull(record.DBA_Name,"");
+			Do_you_have_additional_Legal_Company_Names = ifnull(record.Do_you_have_additional_Legal_Company_Names,"");
+			How_many_Legal_Company_Names = ifnull(record.How_many_Legal_Company_Names,"");
+			DBA_Display = ifnull(record.Do_you_operate_under_another_business_name_DBA,"");
+			Additional_Legal_Display = ifnull(record.Do_you_have_additional_Legal_Company_Names,"");
+			Additional_Legal_Name = ifnull(record.Additional_Legal_Name,"");
+			Additional_Legal_Name1 = ifnull(record.Additional_Legal_Name1,"");
+			//
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Company Information</h3>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Legal Company Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Legal_Company_Name + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Tax ID:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Tax_ID + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Website:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'><a href='" + Website + "' target='_blank'>" + Website + "</a></td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Do you operate under another business name? DBA:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + DBA_Display + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>DBA Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + DBA_Name + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Do you have additional Legal Company Names:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Additional_Legal_Display + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>How many Legal Company Names:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + How_many_Legal_Company_Names + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Additional Legal Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Additional_Legal_Name + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Additional Legal Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Additional_Legal_Name1 + "</td></tr>";
+			description = description + "</table>";
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Location Information</h3>";
+			//
+			////Location Details	
+			//
+			What_is_your_Ownership_Structure = ifnull(record.What_is_your_Ownership_Structure_add,"");
+			Do_you_perform_any_Roofing_Services = ifnull(record.Do_you_perform_any_Roofing_Services,"");
+			// Physical Address fields
+			Physical_Address_Street = ifnull(record.Physical_Address.address_line_1,"");
+			Physical_Address_Street2 = ifnull(record.Physical_Address.address_line_2,"");
+			Physical_Address_City = ifnull(record.Physical_Address.district_city,"");
+			Physical_Address_ZipCode = ifnull(record.Physical_Address.postal_Code,"");
+			Physical_Address_State = ifnull(record.State,"");
+			// Mailing Address different radio button
+			Is_Mailing_Different = ifnull(record.Is_your_Mailing_Address_different_than_your_Physical_Address,"");
+			Is_Mailing_Different_Display = ifnull(record.Is_your_Mailing_Address_different_than_your_Physical_Address,"");
+			// Mailing Address fields
+			Mailing_Address_Street = ifnull(record.Mailing_Address.address_line_1,"");
+			Mailing_Address_Street2 = ifnull(record.Mailing_Address.address_line_2,"");
+			Mailing_Address_City = ifnull(record.Mailing_Address.district_city,"");
+			Mailing_Address_ZipCode = ifnull(record.Mailing_Address.postal_Code,"");
+			Mailing_Address_State = ifnull(record.State1,"");
+			//
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>What is your Ownership Structure?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + What_is_your_Ownership_Structure + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Do you perform any Roofing Services?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Do_you_perform_any_Roofing_Services + "</td></tr>";
+			// Physical Address Section
+			description = description + "<tr><td colspan='2' style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; background-color: #f0f0f0;'>Physical Address</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Street Address:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Physical_Address_Street + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Street Address 2:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Physical_Address_Street2 + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>City:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Physical_Address_City + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Zip Code:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Physical_Address_ZipCode + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>State:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Physical_Address_State + "</td></tr>";
+			// Mailing Address Different Question
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Is your Mailing Address different than your Physical Address?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Is_Mailing_Different_Display + "</td></tr>";
+			description = description + "<tr><td colspan='2' style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; background-color: #f0f0f0;'>Mailing Address</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Street Address:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Mailing_Address_Street + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Street Address 2:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Mailing_Address_Street2 + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>City:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Mailing_Address_City + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Zip Code:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Mailing_Address_ZipCode + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>State:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Mailing_Address_State + "</td></tr>";
+			description = description + "</table>";
+			//
+			////Employee Information	
+			//
+			Number_of_Owners = ifnull(record.of_Owners,"");
+			Number_of_Employees = ifnull(record.of_Employees,"");
+			How_many_Employees_Visit_Job_Site = ifnull(record.How_many_Employees_Visit_Job_Site,"");
+			How_many_Employees_have_access_to_Policyholder = ifnull(record.How_many_Employees_have_access_to_Policyholder_Information_in_your_office,"");
+			Corporate_Owned_Details = ifnull(record.Corporate_Owned_Details,"");
+			Background_Checks_Display = ifnull(record.Are_you_interested_in_ordering_Background_Checks_through_ProfileGorilla,"");
+			//
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Employee Information</h3>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'># of Owners:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Number_of_Owners + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; '># of Employees:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Number_of_Employees + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; '>How many Employees Visit Job Site?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + How_many_Employees_Visit_Job_Site + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>How many Employees have access to Policyholder Information in your office?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + How_many_Employees_have_access_to_Policyholder + "</td></tr>";
+			Corporate_Owned_Display = ifnull(record.Corporate_Owned,"");
+			if(Corporate_Owned_Display == true)
+			{
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Corporate Owned:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>Yes</td></tr>";
+			}
+			else
+			{
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Corporate Owned:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>No</td></tr>";
+			}
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Corporate Owned Details:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Corporate_Owned_Details + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Are you interested in ordering Background Checks through ProfileGorilla?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Background_Checks_Display + "</td></tr>";
+			description = description + "</table>";
+			//
+			Which_services_does_your_Company_perform = ifnull(record.Which_services_does_your_Company_perform,"");
+			//
+			// Employee Details Subform Mapping
+employeeDetailsList = List();
+// Fetch Employee Details from subform - Corrected
+empDetails = record.Employee_Details;
+// Check if empDetails is not null and is a valid list
+if(empDetails != null && !empDetails.isEmpty())
+{
+	for each emp in empDetails
+	{
+		employeeMap = Map();
+		employeeMap.put("Legal_First_Name", ifnull(emp.Legal_First_Name, ""));
+		employeeMap.put("Legal_Last_Name", ifnull(emp.Legal_Last_Name, ""));
+		employeeMap.put("Email_Address", ifnull(emp.Email_Address, ""));
+		employeeMap.put("Phone_Number", ifnull(emp.Phone_Number, ""));
+		
+		// Primary Role - String concatenation to ensure it's a string
+		primaryRoleValue = emp.Primary_Role_Owner_Employee + "";
+		employeeMap.put("Primary_Role_Owner_Employee", primaryRoleValue);
+		
+		// Background Check - String concatenation to ensure it's a string
+		backgroundCheckValue = emp.Do_you_have_Background_Checks_that_you_would_like_to_provide + "";
+		employeeMap.put("Do_you_have_Background_Checks_that_you_would_like_to_provide", backgroundCheckValue);
+		
+		employeeDetailsList.add(employeeMap);
+	}
+}
+//
+//// Employee Information
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Employee Information Subform Data</h3>";
+
+// Loop through each employee
+employeeCounter = 1;
+for each employee in employeeDetailsList
+{
+	description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Employee #" + employeeCounter + "</h4>";
+	description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Legal First Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Legal_First_Name") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Legal Last Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Legal_Last_Name") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Email Address:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Email_Address") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Phone Number:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Phone_Number") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Primary Role:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Primary_Role_Owner_Employee") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Background Checks:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + employee.get("Do_you_have_Background_Checks_that_you_would_like_to_provide") + "</td></tr>";
+	description = description + "</table>";
+	
+	employeeCounter = employeeCounter + 1;
+}
+			//
+			////Service Information	
+			//
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Service Information</h3>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Services Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Which_services_does_your_Company_perform + "</td></tr>";
+			description = description + "</table>";
+			//
+			////Service Territory
+			//
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Service Territory</h3>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			//
+			Do_you_cover_all_counties_in_the_States_where_you_perform_services = ifnull(record.Do_you_cover_all_counties_in_the_States_where_you_perform_services,"");
+			In_which_States_do_you_provide_services = ifnull(record.In_which_States_do_you_provide_services,"");
+			Do_you_prefer_to_provide_your_territory_by_Zip_or_by_County = ifnull(record.Do_you_prefer_to_provide_your_territory_by_Zip_or_by_County,"");
+			//
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Do you cover all counties in the States where you perform services? :</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Do_you_cover_all_counties_in_the_States_where_you_perform_services + "</td></tr>";
+			//
+			if(Do_you_cover_all_counties_in_the_States_where_you_perform_services == "Yes")
+			{
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>In which States do you provide services?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + In_which_States_do_you_provide_services + "</td></tr>";
+			}
+			else
+			{
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold;'>Do you prefer to provide your territory by Zip or by County?</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + Do_you_prefer_to_provide_your_territory_by_Zip_or_by_County + "</td></tr>";
+			}
+			description = description + "</table>";
+			//
+			//Insurance section
+			//
+			insuranceMap = Map();
+			//
+			// Auto Liability (AL)
+			//
+			insuranceMap.put("AL_Agency",ifnull(record.AL_Agency,""));
+			insuranceMap.put("AL_Agent_Name",ifnull(record.AL_Agent_Name,""));
+			insuranceMap.put("AL_Agent_Email",ifnull(record.AL_Agent_Email,""));
+			insuranceMap.put("AL_Agency_Phone",ifnull(record.AL_Agency_Phone,""));
+			//
+			// General Liability (GL)
+			//
+			insuranceMap.put("GL_Agency",ifnull(record.GL_Agency,""));
+			insuranceMap.put("GL_Agent_Name",ifnull(record.GL_Agent_Name,""));
+			insuranceMap.put("GL_Agent_Email",ifnull(record.GL_Agent_Email,""));
+			insuranceMap.put("GL_Agency_Phone",ifnull(record.GL_Agency_Phone,""));
+			//
+			// Professional Liability (PL)
+			//
+			insuranceMap.put("PL_Agency",ifnull(record.PL_Agency,""));
+			insuranceMap.put("PL_Agent_Name",ifnull(record.PL_Agent_Name,""));
+			insuranceMap.put("PL_Agent_Email",ifnull(record.PL_Agent_Email,""));
+			insuranceMap.put("PL_Agency_Phone",ifnull(record.PL_Agency_Phone,""));
+			//
+			// Umbrella Liability (UL)
+			//
+			insuranceMap.put("UL_Agency",ifnull(record.UL_Agency,""));
+			insuranceMap.put("UL_Agent_Name",ifnull(record.UL_Agent_Name,""));
+			insuranceMap.put("UL_Agent_Email",ifnull(record.UL_Agent_Email,""));
+			insuranceMap.put("UL_Agency_Phone",ifnull(record.UL_Agency_Phone,""));
+			//
+			// Bailees
+			//
+			insuranceMap.put("Bailees_Agency",ifnull(record.Bailees_Agency,""));
+			insuranceMap.put("Bailees_Agent_Name",ifnull(record.Bailees_Agent_Name,""));
+			insuranceMap.put("Bailees_Agent_Email",ifnull(record.Bailees_Agent_Email,""));
+			insuranceMap.put("Bailees_Agency_Phone",ifnull(record.Bailees_Agency_Phone,""));
+			//
+			// Contractor Pollution Liability (CPL)
+			//
+			insuranceMap.put("CPL_Agency",ifnull(record.CPL_Agency,""));
+			insuranceMap.put("CPL_Agent_Name",ifnull(record.CPL_Agent_Name,""));
+			insuranceMap.put("CPL_Agent_Email",ifnull(record.CPL_Agent_Email,""));
+			insuranceMap.put("CPL_Agency_Phone",ifnull(record.CPL_Agency_Phone,""));
+			//
+			// Workers Compensation/Employer Liability (WC/EL)
+			//
+			insuranceMap.put("WC_EL_Agency",ifnull(record.WC_EL_Agency,""));
+			insuranceMap.put("WC_EL_Agent_Name",ifnull(record.WC_EL_Agent_Name,""));
+			insuranceMap.put("WC_EL_Agent_Email",ifnull(record.WC_EL_Agent_Email,""));
+			insuranceMap.put("WC_EL_Agency_Phone",ifnull(record.WC_EL_Agency_Phone,""));
+			//
+			// General Insurance Info
+			//
+			insuranceMap.put("Coverages_Held",ifnull(record.Which_of_the_following_coverages_do_you_currently_hold,""));
+			insuranceMap.put("WC_Exempt",ifnull(record.Are_you_exempt_From_Workers_Compensation_Coverage,""));
+			//
+			insuranceMap.put("coiUploaded",ifnull(record.Upload_COI,""));
+			//
+			//// Insurance HTML code below
+			//
+			description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Insurance Information</h3>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			if(insuranceMap.get("coiUploaded") == true){
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certificate of Insurance Uploaded:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>Yes</td></tr>";
+			}
+			if(insuranceMap.get("coiUploaded") == false){
+				description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certificate of Insurance Uploaded:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>No</td></tr>";
+			}
+// 			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certificate of Insurance Uploaded:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("coiUploaded") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Coverage Types Hold:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("Coverages_Held") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Exempt from Workers Compensation:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("WC_Exempt") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Auto Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Auto Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>AL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("AL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>AL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("AL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>AL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("AL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>AL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("AL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// General Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>General Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>GL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("GL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>GL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("GL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>GL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("GL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>GL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("GL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Professional Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Professional Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>PL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("PL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>PL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("PL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>PL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("PL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>PL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("PL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Umbrella Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Umbrella Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>UL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("UL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>UL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("UL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>UL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("UL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>UL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("UL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Bailees
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Bailees Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Bailees Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("Bailees_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Bailees Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("Bailees_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Bailees Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("Bailees_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Bailees Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("Bailees_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Contractor Pollution Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Contractor Pollution Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>CPL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("CPL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>CPL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("CPL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>CPL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("CPL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>CPL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("CPL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Workers Compensation/Employer Liability
+			//
+			description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Workers Compensation/Employer Liability Coverage</h4>";
+			description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>WC/EL Agency:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("WC_EL_Agency") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>WC/EL Agent Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("WC_EL_Agent_Name") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>WC/EL Agent Email:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("WC_EL_Agent_Email") + "</td></tr>";
+			description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>WC/EL Agency Phone:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + insuranceMap.get("WC_EL_Agency_Phone") + "</td></tr>";
+			description = description + "</table>";
+			//
+			// Professional License/Registration Mapping
+			//
+professionalLicenseMap = Map();
+// State Trade License Count
+professionalLicenseMap.put("State_Trade_License_Count", ifnull(record.How_many_State_Trade_Licenses_do_you_have, ""));
+//
+//// Professional License/Registration Information
+//
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Professional License/Registration</h3>";
+description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Total Number of State Trade Licenses:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + professionalLicenseMap.get("State_Trade_License_Count") + "</td></tr>";
+description = description + "</table>";
+			//
+			// Employee Professional License Registration Subform Mapping
+//
+employeeLicenseList = List();
+// Fetch Employee License data from subform
+empLicenses = record.Employee_Professional_License_Registration;
+// Check if empLicenses is not null and is a valid list
+if(empLicenses != null && !empLicenses.isEmpty())
+{
+	for each license in empLicenses
+	{
+		licenseMap = Map();
+		licenseMap.put("License_Holder_Name", ifnull(license.License_Holder_s_Name, ""));
+		licenseMap.put("License_Number", ifnull(license.License, ""));
+		licenseMap.put("License_State", license.License_State + "");
+		licenseMap.put("License_Type", license.License_Type + "");
+		licenseMap.put("Other", ifnull(license.Other, ""));
+		licenseMap.put("License_Expiration_Date", ifnull(license.License_Expiration_Date, ""));
+		
+		employeeLicenseList.add(licenseMap);
+	}
+}
+//
+//// Employee Professional License Registration
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Employee Professional License Registration</h3>";
+
+// Loop through each license
+licenseCounter = 1;
+for each license in employeeLicenseList
+{
+	description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>License #" + licenseCounter + "</h4>";
+	description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>License Holder's Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("License_Holder_Name") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>License Number:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("License_Number") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>License State:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("License_State") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>License Type:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("License_Type") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Other:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("Other") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>License Expiration Date:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + license.get("License_Expiration_Date") + "</td></tr>";
+	description = description + "</table>";
+	
+	licenseCounter = licenseCounter + 1;
+}
+			//
+			// Professional Certifications Mapping
+			//
+professionalCertMap = Map();
+// Trade Certification Count
+professionalCertMap.put("Trade_Certification_Count", ifnull(record.How_many_Trade_Certifications_do_you_have, ""));
+			//
+//// Professional Certifications Information
+//
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Professional Certifications</h3>";
+description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Total Number of State Trade Certifications:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + professionalCertMap.get("Trade_Certification_Count") + "</td></tr>";
+description = description + "</table>";
+//
+// Employee Professional Certification Subform Mapping
+employeeCertificationList = List();
+
+// Fetch Employee Certification data from subform
+empCertifications = record.Employee_Professional_Certification;
+
+// Check if empCertifications is not null and is a valid list
+if(empCertifications != null && !empCertifications.isEmpty())
+{
+	for each cert in empCertifications
+	{
+		certMap = Map();
+		certMap.put("Certification_Holder_Name", ifnull(cert.Certification_Holder_s_Name, ""));
+		certMap.put("Certification_Number", ifnull(cert.Certification, ""));
+		certMap.put("Certification_State", cert.Certification_State + "");
+		certMap.put("Certification_Type", cert.Certification_Type + "");
+		certMap.put("Other", ifnull(cert.Other, ""));
+		certMap.put("Certification_Expiration_Date", ifnull(cert.Certification_Expiration_Date, ""));
+		
+		employeeCertificationList.add(certMap);
+	}
+}
+//
+//// Employee Professional 
+//
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Employee Professional Certification</h3>";
+// Loop through each certification
+certCounter = 1;
+for each cert in employeeCertificationList
+{
+	description = description + "<h4 style='color: #2c3e50; margin-top: 15px;'>Certification #" + certCounter + "</h4>";
+	description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certification Holder's Name:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Certification_Holder_Name") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certification Number:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Certification_Number") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certification State:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Certification_State") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certification Type:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Certification_Type") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Other:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Other") + "</td></tr>";
+	description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Certification Expiration Date:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + cert.get("Certification_Expiration_Date") + "</td></tr>";
+	description = description + "</table>";
+	
+	certCounter = certCounter + 1;
+}
+//
+			// Software & Technology Mapping
+			//
+softwareTechMap = Map();
+// Multi-select field - Software currently used
+softwareTechMap.put("Softwares_Used", ifnull(record.Which_of_the_following_softwares_do_you_currently_use, ""));
+// Xactimate Details
+softwareTechMap.put("Xactimate_Address", ifnull(record.Xactimate_Address, ""));
+softwareTechMap.put("Xactimate_Version", ifnull(record.Xactimate_Version, ""));
+// Symbility Details
+softwareTechMap.put("Symbility_ID", ifnull(record.Symbility_ID, ""));
+// MICA Details
+softwareTechMap.put("MICA_ID", ifnull(record.MICA_ID, ""));
+// Contents Documentation Software
+softwareTechMap.put("Contents_Documentation_Software", ifnull(record.Do_you_utilize_a_contents_documentation_tracking_software, ""));
+//
+//// Software & Technology Information
+//
+description = description + "<h3 style='color: #34495e; margin-top: 10px;'>Software & Technology Information</h3>";
+description = description + "<table style='width: 100%; border-collapse: collapse; margin: 10px 0;'>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Softwares Currently Used:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("Softwares_Used") + "</td></tr>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Xactimate Address:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("Xactimate_Address") + "</td></tr>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Xactimate Version:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("Xactimate_Version") + "</td></tr>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Symbility ID:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("Symbility_ID") + "</td></tr>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>MICA ID:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("MICA_ID") + "</td></tr>";
+description = description + "<tr><td style='padding: 8px; border: 1px solid #bdc3c7; font-weight: bold; width: 350px'>Contents Documentation Software:</td><td style='padding: 8px; border: 1px solid #bdc3c7;'>" + softwareTechMap.get("Contents_Documentation_Software") + "</td></tr>";
+description = description + "</table>";
+			//
+			//Below Note Section that user should check the attachments into ticket attachments
+			//
+			description = description + "<h3 style='color: #2c3e50; margin-top: 15px;'>Note: All the attachments are in the ticket attachment section</h3>";
+			//
+			description = description + "<hr style='margin: 20px 0; border: none; border-top: 1px solid #bdc3c7;'/>";
+			description = description + "<p style='font-size: 12px; color: #7f8c8d;'><strong>Creator Record ID:</strong> " + recordID + "<br/>";
+			description = description + "<strong>Form:</strong> Main Onboarding Wizard<br/>";
+			description = description + "<strong>Auto-generated by:</strong> Zoho Creator → Zoho Desk Integration</p>";
+			description = description + "</div>";
+			info "✅ Description formatted";
+			// STEP 3: SEARCH CONTACT IN DESK
+			testingDeptId = "750912000003671771";
+			testingTeamId = "750912000022045067";
+			contactResp = invokeurl
+			[
+				url :"https://desk.zoho.com/api/v1/contacts/search?email=" + email
+				type :GET
+				connection:"zohodesk"
+			];
+			contactId = "";
+			if(contactResp.get("data") != null && !contactResp.get("data").isEmpty())
+			{
+				contactId = contactResp.get("data").get(0).get("id");
+				info "✅ Contact Found: " + contactId;
+			}
+			else
+			{
+				// Fallback to test user
+				contactResp2 = invokeurl
+				[
+					url :"https://desk.zoho.com/api/v1/contacts/search?email=test.user@example.com"
+					type :GET
+					connection:"zohodesk"
+				];
+				if(contactResp2.get("data") != null && !contactResp2.get("data").isEmpty())
+				{
+					contactId = contactResp2.get("data").get(0).get("id");
+					info "⚠️ Using test contact: " + contactId;
+				}
+			}
+			if(contactId == "")
+			{
+				info "❌ NO CONTACT FOUND";
+				return;
+			}
+			//
+			// STEP 4: CREATE TICKET
+			//
+			ticketMap = Map();
+			ticketMap.put("subject",POC_Name);
+			ticketMap.put("departmentId",testingDeptId);
+			ticketMap.put("teamId",testingTeamId);
+			ticketMap.put("status","Open");
+			ticketMap.put("contactId",contactId);
+			ticketMap.put("channel","Email");
+			ticketMap.put("priority","High");
+			ticketMap.put("dueDate","2025-12-20T10:00:00.000Z");
+			ticketMap.put("description",description);
+			cfMap = Map();
+			cfMap.put("cf_lead_workflow_status","Pre Verification Call Needed");
+			cfMap.put("cf_missing_min_ob_info","true");
+			ticketMap.put("cf",cfMap);
+			createResp = invokeurl
+			[
+				url :"https://desk.zoho.com/api/v1/tickets"
+				type :POST
+				parameters:ticketMap.toString()
+				connection:"zohodesk"
+			];
+			ticketId = createResp.get("id");
+			ticketNumber = createResp.get("ticketNumber");
+			info "=== ✅ TICKET CREATED ===";
+			info "Ticket #: " + ticketNumber;
+			info "Ticket Number: #" + ticketNumber;
+			info "ticketID; " + ticketId;
+		}
+		//
+		// Get the record first to get the file paths
+		//
+		recordResp = invokeurl
+		[
+			url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Main_Onboarding_Wizards/" + id
+			type :GET
+			connection:"zohocreator"
+		];
+		mainresponse = recordResp.get("data");
+		info "=== MAIN RESPONSE ===";
+		info mainresponse;
+		//
+		// Get all file paths
+		//
+		companyLogoPath = mainresponse.get("Company_Logo");
+		w9FilePaths = mainresponse.get("Upload_W9");
+		uploadCOI = mainresponse.get("Upload_a_copy_of_COI");
+		uploadStateCert = mainresponse.get("Upload_a_copy_of_your_State_Exemption_Certificate");
+		countryFileUpload = mainresponse.get("Country_File_upload");
+		zipFileUpload = mainresponse.get("Zip_File_upload");
+		//
+		// Debug: Check what we got
+		//
+		info "=== EXTRACTED FIELDS ===";
+		info "Company Logo: " + companyLogoPath;
+		info "W9 Files: " + w9FilePaths;
+		info "COI Files: " + uploadCOI;
+		//
+		uploadResults = List();
+		ticketId = ticketId;
+		//
+		// Handle Company Logo (single file)
+		//
+		if(companyLogoPath != null && companyLogoPath != "")
+		{
+			info "=== PROCESSING COMPANY LOGO ===";
+			info "Processing Company Logo: " + companyLogoPath;
+			// Fix the path
+			fixedLogoPath = companyLogoPath.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+			downloadLogoUrl = "https://www.zohoapis.com" + fixedLogoPath;
+			info "Download URL (Logo): " + downloadLogoUrl;
+			//
+			// Download the file
+			//
+			logoResp = invokeurl
+			[
+				url :downloadLogoUrl
+				type :GET
+				connection:"zohocreator"
+			];
+			info "Company Logo downloaded";
+			// Set param name
+			logoResp.setParamName("file");
+			// Upload to Desk
+			logoUploadResponse = invokeurl
+			[
+				url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+				type :POST
+				parameters:{"file":logoResp}
+				connection:"zohodesk"
+				content-type:"multipart/form-data"
+			];
+			uploadResults.add({"type":"Company_Logo","status":"success","response":logoUploadResponse});
+			info "Company Logo uploaded: " + logoUploadResponse;
+		}
+		//
+		// Handle W9 files (multiple files - array)
+		//
+		if(w9FilePaths != null && w9FilePaths.size() > 0)
+		{
+			info "=== PROCESSING W9 FILES ===";
+			info "Total W9 files: " + w9FilePaths.size();
+			for each  w9Path in w9FilePaths
+			{
+				info "Processing W9 file: " + w9Path;
+				// Fix the path
+				fixedW9Path = w9Path.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+				downloadW9Url = "https://www.zohoapis.com" + fixedW9Path;
+				info "Download URL (W9): " + downloadW9Url;
+				// Download the file
+				w9Resp = invokeurl
+				[
+					url :downloadW9Url
+					type :GET
+					connection:"zohocreator"
+				];
+				info "W9 file downloaded";
+				// Set param name
+				w9Resp.setParamName("file");
+				// Upload to Desk
+				w9UploadResponse = invokeurl
+				[
+					url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+					type :POST
+					parameters:{"file":w9Resp}
+					connection:"zohodesk"
+					content-type:"multipart/form-data"
+				];
+				uploadResults.add({"type":"Upload_W9","status":"success","response":w9UploadResponse});
+				info "W9 file uploaded: " + w9UploadResponse;
+			}
+		}
+		else
+		{
+			info "No W9 files found or W9 is null";
+		}
+		// Handle COI files (multiple files - array)
+		if(uploadCOI != null)
+		{
+			if(uploadCOI.size() > 0)
+			{
+				info "=== PROCESSING COI FILES ===";
+				info "Total COI files: " + uploadCOI.size();
+				for each  coiPath in uploadCOI
+				{
+					info "Processing COI file: " + coiPath;
+					// Fix the path
+					fixedCOIPath = coiPath.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+					downloadCOIUrl = "https://www.zohoapis.com" + fixedCOIPath;
+					info "Download URL (COI): " + downloadCOIUrl;
+					// Download the file
+					coiResp = invokeurl
+					[
+						url :downloadCOIUrl
+						type :GET
+						connection:"zohocreator"
+					];
+					info "COI file downloaded";
+					// Set param name
+					coiResp.setParamName("file");
+					// Upload to Desk
+					coiUploadResponse = invokeurl
+					[
+						url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+						type :POST
+						parameters:{"file":coiResp}
+						connection:"zohodesk"
+						content-type:"multipart/form-data"
+					];
+					uploadResults.add({"type":"Upload_a_copy_of_COI","status":"success","response":coiUploadResponse});
+					info "COI file uploaded: " + coiUploadResponse;
+				}
+			}
+			else
+			{
+				info "COI list is empty";
+			}
+		}
+		else
+		{
+			info "COI is null";
+		}
+		//
+		// Handle State Exemption Certificate files (multiple files - array)
+		//
+		if(uploadStateCert != null)
+		{
+			if(uploadStateCert.size() > 0)
+			{
+				info "=== PROCESSING STATE EXEMPTION CERTIFICATE FILES ===";
+				info "Total State Certificate files: " + uploadStateCert.size();
+				for each  certPath in uploadStateCert
+				{
+					info "Processing State Certificate file: " + certPath;
+					// Fix the path
+					fixedCertPath = certPath.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+					downloadCertUrl = "https://www.zohoapis.com" + fixedCertPath;
+					info "Download URL (State Certificate): " + downloadCertUrl;
+					// Download the file
+					certResp = invokeurl
+					[
+						url :downloadCertUrl
+						type :GET
+						connection:"zohocreator"
+					];
+					info "State Certificate file downloaded";
+					// Set param name
+					certResp.setParamName("file");
+					// Upload to Desk
+					certUploadResponse = invokeurl
+					[
+						url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+						type :POST
+						parameters:{"file":certResp}
+						connection:"zohodesk"
+						content-type:"multipart/form-data"
+					];
+					uploadResults.add({"type":"State_Exemption_Certificate","status":"success","response":certUploadResponse});
+					info "State Certificate file uploaded: " + certUploadResponse;
+				}
+			}
+			else
+			{
+				info "State Certificate list is empty";
+			}
+		}
+		else
+		{
+			info "State Certificate is null";
+		}
+		//
+		// Handle Country File Upload (multiple files - array)
+		//
+		if(countryFileUpload != null)
+		{
+			if(countryFileUpload.size() > 0)
+			{
+				info "=== PROCESSING COUNTRY FILE UPLOAD ===";
+				info "Total Country files: " + countryFileUpload.size();
+				for each  countryPath in countryFileUpload
+				{
+					info "Processing Country file: " + countryPath;
+					// Fix the path
+					fixedCountryPath = countryPath.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+					downloadCountryUrl = "https://www.zohoapis.com" + fixedCountryPath;
+					info "Download URL (Country): " + downloadCountryUrl;
+					// Download the file
+					countryResp = invokeurl
+					[
+						url :downloadCountryUrl
+						type :GET
+						connection:"zohocreator"
+					];
+					info "Country file downloaded";
+					// Set param name
+					countryResp.setParamName("file");
+					// Upload to Desk
+					countryUploadResponse = invokeurl
+					[
+						url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+						type :POST
+						parameters:{"file":countryResp}
+						connection:"zohodesk"
+						content-type:"multipart/form-data"
+					];
+					uploadResults.add({"type":"Country_File_upload","status":"success","response":countryUploadResponse});
+					info "Country file uploaded: " + countryUploadResponse;
+				}
+			}
+			else
+			{
+				info "Country file list is empty";
+			}
+		}
+		else
+		{
+			info "Country file upload is null";
+		}
+		//
+		// Handle Zip File Upload (multiple files - array)
+		//
+		if(zipFileUpload != null)
+		{
+			if(zipFileUpload.size() > 0)
+			{
+				info "=== PROCESSING ZIP FILE UPLOAD ===";
+				info "Total Zip files: " + zipFileUpload.size();
+				for each  zipPath in zipFileUpload
+				{
+					info "Processing Zip file: " + zipPath;
+					// Fix the path
+					fixedZipPath = zipPath.replaceAll("/api/v2.1/","/creator/v2.1/data/");
+					downloadZipUrl = "https://www.zohoapis.com" + fixedZipPath;
+					info "Download URL (Zip): " + downloadZipUrl;
+					// Download the file
+					zipResp = invokeurl
+					[
+						url :downloadZipUrl
+						type :GET
+						connection:"zohocreator"
+					];
+					info "Zip file downloaded";
+					// Set param name
+					zipResp.setParamName("file");
+					// Upload to Desk
+					zipUploadResponse = invokeurl
+					[
+						url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+						type :POST
+						parameters:{"file":zipResp}
+						connection:"zohodesk"
+						content-type:"multipart/form-data"
+					];
+					uploadResults.add({"type":"Zip_File_upload","status":"success","response":zipUploadResponse});
+					info "Zip file uploaded: " + zipUploadResponse;
+				}
+			}
+			else
+			{
+				info "Zip file list is empty";
+			}
+		}
+		else
+		{
+			info "Zip file upload is null";
+		}
+		//
+		info "=== FINAL RESULTS ===";
+		info "Total files uploaded: " + uploadResults.size() + " - Details: " + uploadResults.toString();
+		//
+		//below Empolyee details subform attachment code
+		//
+		// Get the main record first to access subform IDs
+	recordResp = invokeurl
+	[
+		url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Main_Onboarding_Wizards/"+id
+		type :GET
+		connection:"zohocreator"
+	];
+	mainresponse = recordResp.get("data");
+	info "=== MAIN RESPONSE ===";
+	info mainresponse;
+	// Get Employee Details subform row IDs
+	employeeDetailsSubform = mainresponse.get("Employee_Details");
+	uploadResults = List();
+	skippedFiles = List();
+// 	ticketId = "750912000137400025";
+	// Handle Employee Details Subform Files
+	if(employeeDetailsSubform != null && employeeDetailsSubform.size() > 0)
+	{
+		info "=== PROCESSING EMPLOYEE DETAILS SUBFORM FILES ===";
+		info "Total Employee rows: " + employeeDetailsSubform.size();
+		for each  empRow in employeeDetailsSubform
+		{
+			// Get the subform row ID
+			empRowID = empRow.get("ID");
+			info "Fetching full data for Employee row ID: " + empRowID;
+			// Fetch the FULL subform row data (including file uploads)
+			empFullDataResp = invokeurl
+			[
+				url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Employee_Details/" + empRowID
+				type :GET
+				connection:"zohocreator"
+			];
+			empFullData = empFullDataResp.get("data");
+			info "Full employee data: " + empFullData;
+			// Get employee info for logging
+			empFirstName = empFullData.get("Legal_First_Name");
+			empLastName = empFullData.get("Legal_Last_Name");
+			employeeName = empFirstName + " " + empLastName;
+			if(employeeName.trim() == "")
+			{
+				employeeName = "Employee #" + empRowID;
+			}
+			info "Processing employee: " + employeeName;
+			// Get the file upload field from this employee row
+			empFileUpload = empFullData.get("File_upload");
+			// Check if it's an array (multiple files) or single file
+			if(empFileUpload != null)
+			{
+				// If it's a list, loop through each file
+				if(empFileUpload.size() > 0)
+				{
+					info "Found " + empFileUpload.size() + " file(s) for " + employeeName;
+					for each  empFilePath in empFileUpload
+					{
+						if(empFilePath != null && empFilePath != "")
+						{
+							info "Processing file: " + empFilePath;
+							// Remove /api/v2.1/ from the beginning and construct URL
+							cleanPath = empFilePath.replaceFirst("/api/v2.1/","");
+							downloadEmpFileUrl = "https://www.zohoapis.com/creator/v2.1/data/" + cleanPath;
+							info "Download URL (Employee File): " + downloadEmpFileUrl;
+							// Try to download the file (with error handling for large files)
+							try 
+							{
+								// Download the file
+								empFileResp = invokeurl
+								[
+									url :downloadEmpFileUrl
+									type :GET
+									connection:"zohocreator"
+								];
+								info "Employee file downloaded for: " + employeeName;
+								// Set param name
+								empFileResp.setParamName("file");
+								// Upload to Desk
+								empFileUploadResponse = invokeurl
+								[
+									url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+									type :POST
+									parameters:{"file":empFileResp}
+									connection:"zohodesk"
+									content-type:"multipart/form-data"
+								];
+								uploadResults.add({"type":"Employee_File","employee":employeeName,"status":"success","response":empFileUploadResponse});
+								info "Employee file uploaded for " + employeeName + ": " + empFileUploadResponse;
+							}
+							catch (e)
+							{
+								// File is too large or other error
+								info "SKIPPED - File too large or error: " + empFilePath;
+								skippedFiles.add({"employee":employeeName,"file":empFilePath,"reason":"File size > 5MB or download error"});
+							}
+						}
+					}
+				}
+				else
+				{
+					info "File upload field is empty for: " + employeeName;
+				}
+			}
+			else
+			{
+				info "No file upload field found for employee: " + employeeName;
+			}
+		}
+	}
+	else
+	{
+		info "No Employee Details found or subform is empty";
+	}
+	info "=== EMPLOYEE FILES UPLOAD RESULTS ===";
+	info "Total employee files uploaded: " + uploadResults.size();
+	info "Total files skipped (>5MB): " + skippedFiles.size();
+	info uploadResults;
+	//
+	if(skippedFiles.size() > 0)
+	{
+		info "=== SKIPPED FILES ===";
+		info skippedFiles;
+	}
+	//
+	info "Total uploaded: " + uploadResults.size() + " | Skipped (>5MB): " + skippedFiles.size();
+	//
+	//Below code is for Employee_Professional_License_Registration
+	//
+	// Get the main record first to access subform IDs
+	//
+	recordResp = invokeurl
+	[
+		url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Main_Onboarding_Wizards/"+id
+		type :GET
+		connection:"zohocreator"
+	];
+	mainresponse = recordResp.get("data");
+	info "=== MAIN RESPONSE ===";
+	info mainresponse;
+	// Get Employee Professional License Registration subform row IDs
+	licensesSubform = mainresponse.get("Employee_Professional_License_Registration");
+	uploadResults = List();
+	skippedFiles = List();
+// 	ticketId = "750912000137397409";
+	// Handle Employee Professional License Registration Subform Files
+	if(licensesSubform != null && licensesSubform.size() > 0)
+	{
+		info "=== PROCESSING EMPLOYEE PROFESSIONAL LICENSE FILES ===";
+		info "Total License rows: " + licensesSubform.size();
+		for each  licenseRow in licensesSubform
+		{
+			// Get the subform row ID
+			licenseRowID = licenseRow.get("ID");
+			info "Fetching full data for License row ID: " + licenseRowID;
+			// Fetch the FULL subform row data (including file uploads)
+			licenseFullDataResp = invokeurl
+			[
+				url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Employee_Professional_License_Report/" + licenseRowID
+				type :GET
+				connection:"zohocreator"
+			];
+			licenseFullData = licenseFullDataResp.get("data");
+			info "Full license data: " + licenseFullData;
+			// Get license info for logging
+			licenseHolderName = licenseFullData.get("License_Holder_s_Name");
+			licenseNumber = licenseFullData.get("License");
+			licenseIdentifier = licenseHolderName + " - License #" + licenseNumber;
+			if(licenseIdentifier.trim() == " - License #")
+			{
+				licenseIdentifier = "License Row #" + licenseRowID;
+			}
+			info "Processing license: " + licenseIdentifier;
+			// Get the file upload field from this license row
+			// CORRECTED FIELD NAME: Upload_a_copay_of_License (not "copy")
+			licenseFileUpload = licenseFullData.get("Upload_a_copay_of_License");
+			// Check if it's an array (multiple files) or single file
+			if(licenseFileUpload != null)
+			{
+				// If it's a list, loop through each file
+				if(licenseFileUpload.size() > 0)
+				{
+					info "Found " + licenseFileUpload.size() + " file(s) for " + licenseIdentifier;
+					for each  licenseFilePath in licenseFileUpload
+					{
+						if(licenseFilePath != null && licenseFilePath != "")
+						{
+							info "Processing file: " + licenseFilePath;
+							// Remove /api/v2.1/ from the beginning and construct URL
+							cleanPath = licenseFilePath.replaceFirst("/api/v2.1/","");
+							downloadLicenseFileUrl = "https://www.zohoapis.com/creator/v2.1/data/" + cleanPath;
+							info "Download URL (License File): " + downloadLicenseFileUrl;
+							// Try to download the file (with error handling for large files)
+							try 
+							{
+								// Download the file
+								licenseFileResp = invokeurl
+								[
+									url :downloadLicenseFileUrl
+									type :GET
+									connection:"zohocreator"
+								];
+								info "License file downloaded for: " + licenseIdentifier;
+								// Set param name
+								licenseFileResp.setParamName("file");
+								// Upload to Desk
+								licenseFileUploadResponse = invokeurl
+								[
+									url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+									type :POST
+									parameters:{"file":licenseFileResp}
+									connection:"zohodesk"
+									content-type:"multipart/form-data"
+								];
+								uploadResults.add({"type":"License_File","license":licenseIdentifier,"status":"success","response":licenseFileUploadResponse});
+								info "License file uploaded for " + licenseIdentifier + ": " + licenseFileUploadResponse;
+							}
+							catch (e)
+							{
+								// File is too large or other error
+								info "SKIPPED - File too large or error: " + licenseFilePath;
+								skippedFiles.add({"license":licenseIdentifier,"file":licenseFilePath,"reason":"File size > 5MB or download error"});
+							}
+						}
+					}
+				}
+				else
+				{
+					info "File upload field is empty for: " + licenseIdentifier;
+				}
+			}
+			else
+			{
+				info "No file upload field found for license: " + licenseIdentifier;
+			}
+		}
+	}
+	else
+	{
+		info "No Employee Professional License Registration found or subform is empty";
+	}
+	info "=== LICENSE FILES UPLOAD RESULTS ===";
+	info "Total license files uploaded: " + uploadResults.size();
+	info "Total files skipped (>5MB): " + skippedFiles.size();
+	info uploadResults;
+	if(skippedFiles.size() > 0)
+	{
+		info "=== SKIPPED FILES ===";
+		info skippedFiles;
+	}
+	info "Total uploaded: " + uploadResults.size() + " | Skipped (>5MB): " + skippedFiles.size();
+	//
+	//Below code is for Employee_Professional_Certification attachments from subform
+	//
+	// Get the main record first to access subform IDs
+	//
+	recordResp = invokeurl
+	[
+		url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/All_Main_Onboarding_Wizards/"+id
+		type :GET
+		connection:"zohocreator"
+	];
+	mainresponse = recordResp.get("data");
+	info "=== MAIN RESPONSE ===";
+	info mainresponse;
+	// Get Employee Professional Certification subform row IDs
+	certificationsSubform = mainresponse.get("Employee_Professional_Certification");
+	uploadResults = List();
+	skippedFiles = List();
+// 	ticketId = "750912000137397409";
+	// Handle Employee Professional Certification Subform Files
+	if(certificationsSubform != null && certificationsSubform.size() > 0)
+	{
+		info "=== PROCESSING EMPLOYEE PROFESSIONAL CERTIFICATION FILES ===";
+		info "Total Certification rows: " + certificationsSubform.size();
+		for each  certRow in certificationsSubform
+		{
+			// Get the subform row ID
+			certRowID = certRow.get("ID");
+			info "Fetching full data for Certification row ID: " + certRowID;
+			// Fetch the FULL subform row data (including file uploads)
+			certFullDataResp = invokeurl
+			[
+				url :"https://www.zohoapis.com/creator/v2.1/data/profilegorilla/onboarding-wizard/report/Company_Professional_Certification_Report/" + certRowID
+				type :GET
+				connection:"zohocreator"
+			];
+			certFullData = certFullDataResp.get("data");
+			info "Full certification data: " + certFullData;
+			// Get certification info for logging
+			certHolderName = certFullData.get("Certification_Holder_s_Name");
+			certNumber = certFullData.get("Certification");
+			certIdentifier = certHolderName + " - Cert #" + certNumber;
+			if(certIdentifier.trim() == " - Cert #")
+			{
+				certIdentifier = "Certification Row #" + certRowID;
+			}
+			info "Processing certification: " + certIdentifier;
+			// Get the file upload field from this certification row
+			certFileUpload = certFullData.get("Upload_a_copay_of_Certification");
+			// Check if it's an array (multiple files) or single file
+			if(certFileUpload != null)
+			{
+				// If it's a list, loop through each file
+				if(certFileUpload.size() > 0)
+				{
+					info "Found " + certFileUpload.size() + " file(s) for " + certIdentifier;
+					for each  certFilePath in certFileUpload
+					{
+						if(certFilePath != null && certFilePath != "")
+						{
+							info "Processing file: " + certFilePath;
+							// Remove /api/v2.1/ from the beginning and construct URL
+							cleanPath = certFilePath.replaceFirst("/api/v2.1/","");
+							downloadCertFileUrl = "https://www.zohoapis.com/creator/v2.1/data/" + cleanPath;
+							info "Download URL (Certification File): " + downloadCertFileUrl;
+							// Try to download the file (with error handling for large files)
+							try 
+							{
+								// Download the file
+								certFileResp = invokeurl
+								[
+									url :downloadCertFileUrl
+									type :GET
+									connection:"zohocreator"
+								];
+								info "Certification file downloaded for: " + certIdentifier;
+								// Set param name
+								certFileResp.setParamName("file");
+								// Upload to Desk
+								certFileUploadResponse = invokeurl
+								[
+									url :"https://desk.zoho.com/api/v1/tickets/" + ticketId + "/attachments"
+									type :POST
+									parameters:{"file":certFileResp}
+									connection:"zohodesk"
+									content-type:"multipart/form-data"
+								];
+								uploadResults.add({"type":"Certification_File","certification":certIdentifier,"status":"success","response":certFileUploadResponse});
+								info "Certification file uploaded for " + certIdentifier + ": " + certFileUploadResponse;
+							}
+							catch (e)
+							{
+								// File is too large or other error
+								info "SKIPPED - File too large or error: " + certFilePath;
+								skippedFiles.add({"certification":certIdentifier,"file":certFilePath,"reason":"File size > 5MB or download error"});
+							}
+						}
+					}
+				}
+				else
+				{
+					info "File upload field is empty for: " + certIdentifier;
+				}
+			}
+			else
+			{
+				info "No file upload field found for certification: " + certIdentifier;
+			}
+		}
+	}
+	else
+	{
+		info "No Employee Professional Certification found or subform is empty";
+	}
+	info "=== CERTIFICATION FILES UPLOAD RESULTS ===";
+	info "Total certification files uploaded: " + uploadResults.size();
+	info "Total files skipped (>5MB): " + skippedFiles.size();
+	info uploadResults;
+	if(skippedFiles.size() > 0)
+	{
+		info "=== SKIPPED FILES ===";
+		info skippedFiles;
+	}
+	info "Total uploaded: " + uploadResults.size() + " | Skipped (>5MB): " + skippedFiles.size();
+	//
+	}
+	catch (e)
+	{
+		info "❌ ERROR: " + e;
+	}
+}
